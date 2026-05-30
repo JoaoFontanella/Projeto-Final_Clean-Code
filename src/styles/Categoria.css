@@ -1,0 +1,92 @@
+.rosto-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.rosto-title {
+  width: 250px;
+  text-align: center;
+
+  font-size: 25px;
+  color: #000000;
+  font-family: sans-serif;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.rosto-main-content {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.rosto-card {
+  flex: 1 0 21%;
+  margin: 10px;
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.rosto-card:hover {
+  transform: scale(1.05);
+}
+
+.rosto-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.rosto-card-title {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.rosto-card-description {
+  font-size: 0.9em;
+  color: #555;
+}
+
+@media (max-width: 1024px) {
+  .rosto-card {
+    flex: 1 0 45%;
+    max-width: 100%;
+  }
+
+  .rosto-carousel-inner img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rosto-carousel {
+    width: 95%;
+    margin-top: 10px;
+  }
+
+  .rosto-carousel-inner img {
+    height: 250px;
+  }
+
+  .rosto-main-content {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rosto-card {
+    flex: 1 0 100%;
+    margin: 10px 0;
+  }
+
+  .rosto-carousel-inner img {
+    height: 200px;
+  }
+}

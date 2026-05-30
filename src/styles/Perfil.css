@@ -1,0 +1,99 @@
+
+.perfil-title {
+  width: 250px;
+  text-align: center;
+  font-size: 25px;
+  color: #ec747c;
+  font-family: sans-serif;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.perfil{
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.perfil form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 340px;
+    box-shadow: none;
+}
+
+.perfil form h3 {
+    margin-bottom:16px;
+    color: #ec747c;
+}
+
+.perfil form label {
+    color: #252525;
+    font-size: 12px;
+    margin-bottom: -8px;
+}
+
+.perfil input {
+    width: -webkit-fill-available;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    padding: 4px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    background-color: none;
+    border-radius: 4px;
+}
+
+.perfil input:focus {
+    outline: none;
+}
+
+.perfil input::placeholder {
+    color: #ec747c9c;
+    font-size: 16px;
+}
+
+.perfil input[type="date"]::-webkit-datetime-edit {
+    color: #ec747c9c;
+  }
+
+
+.button-container {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
+}
+
+.perfil button {
+    width: 100px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 8px;
+    background-color: #e66a70;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.perfil button:hover {
+    background-color: #d55a60;
+}
