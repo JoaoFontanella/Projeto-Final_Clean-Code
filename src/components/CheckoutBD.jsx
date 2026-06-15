@@ -9,7 +9,7 @@ const CheckoutBD = async (id_usuario, id_carrinho) => {
           id_carrinho: id_carrinho
         }
 
-      response = await axios.post('http://localhost:80/d-oliva-e-commerce/api/Checkout.php/insertPedido', obj);
+      response = await axios.post('http://localhost:80/Projeto-Final_Clean-Code/api/Checkout.php/insertPedido', obj);
       return response.data;
     }
   } catch (error) {

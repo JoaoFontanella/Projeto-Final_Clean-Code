@@ -10,10 +10,10 @@ const User = async (tipo, email, password) => {
       }
   
       if(tipo == 1){
-        response = await axios.post('http://localhost:80/d-oliva-e-commerce/api/User.php/insertAccount', obj);
+        response = await axios.post('http://localhost:80/Projeto-Final_Clean-Code/api/User.php/insertAccount', obj);
         return response.data;
       } else {
-        response = await axios.post('http://localhost:80/d-oliva-e-commerce/api/User.php/loginAccount', obj);
+        response = await axios.post('http://localhost:80/Projeto-Final_Clean-Code/api/User.php/loginAccount', obj);
         return response.data;
       }
     }

@@ -5,10 +5,10 @@ const getCategory = async (id) => {
     let response = '';
 
     if(id != ''){
-      response = await axios.get('http://localhost:80/d-oliva-e-commerce/api/Category.php/getCategory?id='+id);
+      response = await axios.get('http://localhost:80/Projeto-Final_Clean-Code/api/Category.php/getCategory?id='+id);
       return response.data;
     } else {
-      response = await axios.get('http://localhost:80/d-oliva-e-commerce/api/Category.php/getCategory');
+      response = await axios.get('http://localhost:80/Projeto-Final_Clean-Code/api/Category.php/getCategory');
       return response.data;
     }
   } catch (error) {

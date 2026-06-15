@@ -13,10 +13,10 @@ const CartBD = async (tipo, id_usuario, post, total) => {
           total: total
         }
 
-        response = await axios.post('http://localhost:80/d-oliva-e-commerce/api/Cart.php/insertProducts', obj);
+        response = await axios.post('http://localhost:80/Projeto-Final_Clean-Code/api/Cart.php/insertProducts', obj);
         return response.data;
       } else {
-        response = await axios.post('http://localhost:80/d-oliva-e-commerce/api/Cart.php/deleteProduct', post);
+        response = await axios.post('http://localhost:80/Projeto-Final_Clean-Code/api/Cart.php/deleteProduct', post);
         return response.data;
       }
     }
