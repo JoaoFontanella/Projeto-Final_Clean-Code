@@ -1,6 +1,6 @@
 import { React, useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import getProducts from '../components/Products';
+import fetchProducts from '../services/api/productsApi';
 import '../styles/ProductDetail.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -17,7 +17,7 @@ const ProductDetail = () => {
     window.scrollTo(0, 0);
 
     const loadProducts = async () => {
-      const productData = await getProducts(id);
+      const productData = await fetchProducts(id);
       setProduct(productData[0]);
     };
 

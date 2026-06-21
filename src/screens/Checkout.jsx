@@ -5,7 +5,7 @@ import { CartContext } from '../context/CartContext';
 import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import CheckoutBD from '../components/CheckoutBD';
+import submitCheckout from '../services/api/checkoutApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Checkout() {
@@ -113,7 +113,7 @@ function Checkout() {
   };
 
   const handleQuery = async () => {
-    const postData = await CheckoutBD(id_usuario, id_carrinho);
+    const postData = await submitCheckout(id_usuario, id_carrinho);
 
     if (postData['id_pedido'] != 0) {
       console.log('Pedido enviado:', {

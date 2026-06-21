@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import App from './app/App';
 import './styles/index.css';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeSessionStorage } from './services/storage/sessionBootstrap';
 
-AsyncStorage.setItem('favoriteItems', JSON.stringify([]));
-AsyncStorage.setItem('id_usuario', 0);
-AsyncStorage.setItem('id_carrinho', 0);
+void initializeSessionStorage();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <App />

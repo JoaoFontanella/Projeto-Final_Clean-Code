@@ -4,7 +4,7 @@ import { CartContext } from '../context/CartContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
-import CartBD from '../components/CartBD';
+import submitCart from '../services/api/cartApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Cart = () => {
@@ -36,7 +36,7 @@ const Cart = () => {
     };
 
     const handleQuery = async (id_usuario) => {
-      const postData = await CartBD(1, id_usuario, cartItems, totalPrice);
+      const postData = await submitCart(1, id_usuario, cartItems, totalPrice);
       console.log(postData);
 
       if (postData['error'] == null) {

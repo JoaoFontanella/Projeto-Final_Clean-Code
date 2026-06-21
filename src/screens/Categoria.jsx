@@ -1,7 +1,7 @@
 import { React, useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '../components/Pagination';
-import ProductsCategory from "../components/ProductsCategory";
+import fetchProductsByCategory from '../services/api/productsByCategoryApi';
 import "../styles/Categoria.css";
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -24,7 +24,7 @@ const Categoria = () => {
   
   useEffect(() => {
     let loadProductsCategory = async () => {
-      let productData = await ProductsCategory(id);
+      let productData = await fetchProductsByCategory(id);
       setProducts(productData);
     };
 

@@ -5,7 +5,7 @@ import Card from '../components/Card';
 import Pagination from '../components/Pagination';
 import '../styles/Home.css';
 import { CartContext } from '../context/CartContext';
-import getProducts from '../components/Products';
+import fetchProducts from '../services/api/productsApi';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -40,7 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const productData = await getProducts('', searchQuery);
+      const productData = await fetchProducts('', searchQuery);
       setProducts(productData);
       setCurrentPage(1);
     };

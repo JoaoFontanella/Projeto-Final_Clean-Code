@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import getCategory from '../components/Category';
+import fetchCategories from '../services/api/categoriesApi';
 import { CartContext } from '../context/CartContext';
-import getProducts from '../components/Products';
+import fetchProducts from '../services/api/productsApi';
 
 const Header = ({ onSearch }) => {
   const { getTotalItems } = useContext(CartContext);
@@ -25,7 +25,7 @@ const Header = ({ onSearch }) => {
     }
 
     try {
-      const results = await getProducts('', value);
+      const results = await fetchProducts('', value);
       setSuggestions(results.slice(0, 5));
     } catch (err) {
       console.error('Erro ao buscar sugestões:', err);
@@ -42,7 +42,7 @@ const Header = ({ onSearch }) => {
 
   useEffect(() => {
     const loadCategory = async () => {
-      const categoryData = await getCategory('');
+      const categoryData = await fetchCategories('');
       setCategory(categoryData);
     };
 

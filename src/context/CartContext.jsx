@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
-import CartBD from '../components/CartBD';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
+import submitCart from '../services/api/cartApi';
 
 export const CartContext = createContext();
 
@@ -86,7 +86,7 @@ const CartProvider = ({ children }) => {
         productId: productId
       };
 
-      const postData = await CartBD(2, '', obj, '');
+      const postData = await submitCart(2, '', obj, '');
       if (postData['error'] != null) {
         console.log(postData['error']);
       }
