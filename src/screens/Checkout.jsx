@@ -6,7 +6,9 @@ import Footer from '../components/Footer';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import submitCheckout from '../services/api/checkoutApi';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
+import { useRef } from 'react';
+import useFormValidation from '../hooks/useFormValidation';
 
 function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState('cartao');
@@ -21,6 +23,9 @@ function Checkout() {
   const { cartItems, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
+  const formRef = useRef(null);
+  const { validateForm } = useFormValidation();
+
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((total, item) => total + item.price * item.quantity, 0)
@@ -32,7 +37,7 @@ function Checkout() {
 
     const getSessionUser = async () => {
       try {
-        const savedUser = await AsyncStorage.getItem("id_usuario");
+        const savedUser = await storageService.getItem('id_usuario');
         return savedUser;
       } catch (error) {
         console.log(error);
@@ -41,7 +46,7 @@ function Checkout() {
 
     const getSessionCarrinho = async () => {
       try {
-        const savedUser = await AsyncStorage.getItem("id_carrinho");
+        const savedUser = await storageService.getItem('id_carrinho');
         return savedUser;
       } catch (error) {
         console.log(error);
@@ -75,10 +80,7 @@ function Checkout() {
   };
 
   const validateFields = () => {
-    const billingInputs = document.querySelectorAll('.billing-details input');
-    const allFieldsValid = Array.from(billingInputs).every((input) =>
-      input.checkValidity()
-    );
+    const allFieldsValid = validateForm(formRef);
 
     if (!allFieldsValid) {
       Swal.fire({
@@ -89,24 +91,6 @@ function Checkout() {
         confirmButtonColor: '#EC747C',
       });
       return false;
-    }
-
-    if (paymentMethod === 'cartao') {
-      const cardInputs = document.querySelectorAll('.card-details input');
-      const allCardFieldsValid = Array.from(cardInputs).every((input) =>
-        input.checkValidity()
-      );
-
-      if (!allCardFieldsValid) {
-        Swal.fire({
-          title: 'Erro!',
-          text: 'Por favor, preencha todos os campos do cartão corretamente.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#EC747C',
-        });
-        return false;
-      }
     }
 
     return true;
@@ -130,7 +114,7 @@ function Checkout() {
         confirmButtonColor: '#EC747C',
       }).then(() => {
           clearCart();
-          AsyncStorage.setItem('id_carrinho', 0);
+          storageService.setItem('id_carrinho', 0);
           navigate('/');
         });
     } else {
@@ -141,9 +125,7 @@ function Checkout() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!validateFields()) {
-      return;
-    }
+    if (!validateFields()) return;
 
     handleQuery();
   };
@@ -152,56 +134,24 @@ function Checkout() {
     <div>
       <Header />
       <div className="checkout-container">
-        <div className="billing-details">
+        <div className="billing-details" ref={formRef}>
           <h2>Detalhes de cobrança</h2>
           <label>Nome completo</label>
-          <input
-          name="name"
-          placeholder="Nome Completo" 
-          type="text" required 
-          />
+          <input name="name" placeholder="Nome Completo" type="text" required />
           <label>CEP</label>
-          <input 
-          name="cep"
-          placeholder="Digite seu CEP" 
-          type="text" required
-          />
+          <input name="cep" placeholder="Digite seu CEP" type="text" required />
           <label>Nome da rua</label>
-          <input 
-          name="rua"
-          placeholder="Digite o nome da rua" 
-          type="text" required 
-          />
+          <input name="rua" placeholder="Digite o nome da rua" type="text" required />
           <label>Apartamento, andar, etc.</label>
-          <input 
-          name="local"
-          placeholder="Complementos" 
-          type="text" required
-          />
+          <input name="local" placeholder="Complementos" type="text" required />
           <label>Ponto de referência</label>
-          <input
-          name="ref"
-          placeholder="Ponto de referência" 
-          type="text" required 
-          />
+          <input name="ref" placeholder="Ponto de referência" type="text" required />
           <label>Cidade</label>
-          <input
-          name="cidade"
-          placeholder="Digite sua cidade" 
-          type="text" required 
-          />
+          <input name="cidade" placeholder="Digite sua cidade" type="text" required />
           <label>Número de telefone</label>
-          <input
-          name="phone"
-          placeholder="Digite seu telefone" 
-          type="tel" required
-          />
+          <input name="phone" placeholder="Digite seu telefone" type="tel" required />
           <label>Endereço de email</label>
-          <input 
-          name="email"
-          placeholder="nome@email.com.br"
-          type="email" required 
-          />
+          <input name="email" placeholder="nome@email.com.br" type="email" required />
         </div>
 
         <div className="order-summary">
@@ -285,8 +235,8 @@ function Checkout() {
                 placeholder="000"
                 value={cardDetails.cvv}
                 onChange={handleCardDetailsChange}
-                maxLength="3" // Limita em 3 caracteres
-                pattern="\d{3}" // Limita em 3 digitos
+                maxLength="3"
+                pattern="\\d{3}"
                 required
               />
             </div>

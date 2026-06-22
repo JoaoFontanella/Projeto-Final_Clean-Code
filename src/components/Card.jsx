@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FavoritesContext } from '../context/FavoritesContext';
 import '../styles/Card.css';
 import { Link } from 'react-router-dom';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
 
 const Card = ({ id, image, title, description, addToCart, product }) => {
   const { favoriteItems, addToFavorites, removeFromFavorites } = useContext(FavoritesContext);
@@ -13,15 +13,15 @@ const Card = ({ id, image, title, description, addToCart, product }) => {
   useEffect(() => {
     const getSessionFavoriteCard = async () => {
       try {
-        const savedUser = await AsyncStorage.getItem("favoriteItems");
+        const savedUser = await storageService.getItem('favoriteItems');
         return savedUser;
       } catch (error) {
         console.log(error);
       }
     };
-  
-    getSessionFavoriteCard().then(res => {
-      setFavoriteItemsCard(JSON.parse(res));
+
+    getSessionFavoriteCard().then((res) => {
+      setFavoriteItemsCard(res || []);
     });
   }, [favoriteItems]);
   

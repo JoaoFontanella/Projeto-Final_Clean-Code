@@ -5,7 +5,7 @@ import Card from '../components/Card';
 import Pagination from '../components/Pagination';
 import '../styles/Favoritos.css';
 import { CartContext } from '../context/CartContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
 import ChatBot from '../components/ChatBot';
 
 const Favoritos = () => {
@@ -18,15 +18,15 @@ const Favoritos = () => {
   useEffect(() => {
     const getSessionFavorite = async () => {
       try {
-        const savedUser = await AsyncStorage.getItem("favoriteItems");
+        const savedUser = await storageService.getItem('favoriteItems');
         return savedUser;
       } catch (error) {
         console.log(error);
       }
     };
-  
-    getSessionFavorite().then(res => {
-      setFavoriteItems(JSON.parse(res));
+
+    getSessionFavorite().then((res) => {
+      setFavoriteItems(res || []);
     });
   }, []);
 

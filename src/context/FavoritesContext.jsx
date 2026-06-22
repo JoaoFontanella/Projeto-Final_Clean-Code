@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
 
 export const FavoritesContext = createContext();
 
@@ -11,20 +11,9 @@ const FavoritesProvider = ({ children }) => {
     const isAlreadyFavorite = favoriteItems.some((item) => item.id === product.id);
 
     if (!isAlreadyFavorite) {
-      setFavoriteItems([...favoriteItems, product]);
-
-      const getSessionFavorite = async () => {
-        try {
-          const savedUser = await AsyncStorage.getItem("favoriteItems");
-          return savedUser;
-        } catch (error) {
-          console.log(error);
-        }
-      };
-
-      getSessionFavorite().then(res => {
-        AsyncStorage.setItem('favoriteItems', JSON.stringify([...favoriteItems, product]));
-      });
+      const newFavorites = [...favoriteItems, product];
+      setFavoriteItems(newFavorites);
+      storageService.setItem('favoriteItems', newFavorites);
     }
   };
 
@@ -32,7 +21,7 @@ const FavoritesProvider = ({ children }) => {
   const removeFromFavorites = (productId) => {
     const updatedFavorites = favoriteItems.filter((item) => item.id !== productId);
     setFavoriteItems(updatedFavorites);
-    AsyncStorage.setItem('favoriteItems', JSON.stringify(updatedFavorites));
+    storageService.setItem('favoriteItems', updatedFavorites);
   };
 
 

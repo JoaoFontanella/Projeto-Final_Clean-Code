@@ -5,40 +5,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import fetchCategories from '../services/api/categoriesApi';
 import { CartContext } from '../context/CartContext';
 import fetchProducts from '../services/api/productsApi';
+import useSearchSuggestions from '../hooks/useSearchSuggestions';
 
 const Header = ({ onSearch }) => {
   const { getTotalItems } = useContext(CartContext);
   const totalItems = getTotalItems();
-  const [suggestions, setSuggestions] = useState([]);
   const [categoriaItems, setCategory] = useState([]);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
-  const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = async (event) => {
-    const value = event.target.value;
-    setInputValue(value);
-
-    if (value.trim() === '') {
-      setSuggestions([]);
-      return;
-    }
-
-    try {
-      const results = await fetchProducts('', value);
-      setSuggestions(results.slice(0, 5));
-    } catch (err) {
-      console.error('Erro ao buscar sugestões:', err);
-      setSuggestions([]);
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      onSearch(inputValue);
-      setSuggestions([]);
-    }
-  };
+  const {
+    inputValue,
+    setInputValue,
+    suggestions,
+    handleInputChange,
+    handleKeyDown,
+    setSuggestions,
+  } = useSearchSuggestions(fetchProducts, (query) => onSearch(query));
 
   useEffect(() => {
     const loadCategory = async () => {

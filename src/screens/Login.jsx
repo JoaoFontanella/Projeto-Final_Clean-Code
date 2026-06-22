@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import User from '../components/User';
 import Swal from 'sweetalert2';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
 import { useNavigate } from 'react-router-dom';
   
 function Login() {
@@ -25,7 +25,7 @@ function Login() {
         confirmButtonColor: '#EC747C',
       })
         .then(() => {
-          AsyncStorage.setItem('id_usuario', postData['id_usuario']);
+          storageService.setItem('id_usuario', postData['id_usuario']);
           navigate('/');
       });
     } else {

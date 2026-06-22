@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Card from '../components/Card';
+import ProductList from '../components/ProductList';
 import Pagination from '../components/Pagination';
 import '../styles/Home.css';
 import { CartContext } from '../context/CartContext';
 import fetchProducts from '../services/api/productsApi';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import storageService from '../services/storage/storageService';
 import ChatBot from '../components/ChatBot';
 
 const Home = () => {
@@ -21,21 +21,22 @@ const Home = () => {
   const itemsPerPage = 24;
 
   useEffect(() => {
-    const getSessionUser = async () => {
+    let mounted = true;
+    const check = async () => {
       try {
-        const savedUser = await AsyncStorage.getItem("id_usuario");
-        return savedUser;
+        const savedUser = await storageService.getItem('id_usuario');
+        if (!mounted) return;
+        if (savedUser && JSON.parse(savedUser) > 0) {
+          setMessage('Bem-vindo!');
+          setTimeout(() => setMessage(''), 1000);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
-    getSessionUser().then(res => {
-      if (JSON.parse(res) > 0) {
-        setMessage("Bem-vindo!");
-        setTimeout(() => setMessage(''), 1000);
-      }
-    });
+    check();
+    return () => (mounted = false);
   }, []);
 
   useEffect(() => {
@@ -94,17 +95,7 @@ const Home = () => {
       <main className="main-content">
         {message && <div className="confirmation-message">{message}</div>}
         {currentItems.length > 0 ? (
-          currentItems.map((product) => (
-            <Card
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              title={product.title}
-              description={product.description}
-              addToCart={() => handleAddToCart(product)}
-              product={product}
-            />
-          ))
+          <ProductList products={currentItems} onAddToCart={handleAddToCart} />
         ) : (
           <p className="no-favorites-message">Nenhum produto encontrado.</p>
         )}
