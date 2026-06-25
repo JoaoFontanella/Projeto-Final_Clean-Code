@@ -65,7 +65,7 @@ function Checkout() {
         })
       }
     });
-  }, []);
+  }, [navigate]);
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);

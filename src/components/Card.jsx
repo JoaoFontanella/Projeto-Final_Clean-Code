@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FavoritesContext } from '../context/FavoritesContext';
 import '../styles/Card.css';
-import { Link } from 'react-router-dom';
 import storageService from '../services/storage/storageService';
 
 const Card = ({ id, image, title, description, addToCart, product }) => {

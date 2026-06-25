@@ -16,7 +16,6 @@ const Header = ({ onSearch }) => {
 
   const {
     inputValue,
-    setInputValue,
     suggestions,
     handleInputChange,
     handleKeyDown,

@@ -2,7 +2,7 @@ import storageService from '../services/storage/storageService'
 
 vi.mock('@react-native-async-storage/async-storage', () => ({
   default: {
-    getItem: vi.fn(async (k) => JSON.stringify({ mocked: true })),
+    getItem: vi.fn(async (_k) => JSON.stringify({ mocked: true })),
     setItem: vi.fn(async () => null),
     removeItem: vi.fn(async () => null),
   },

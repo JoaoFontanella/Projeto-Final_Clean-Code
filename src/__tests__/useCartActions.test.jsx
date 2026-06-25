@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import useCartActions from '../hooks/useCartActions'
 import Swal from 'sweetalert2'
 import submitCart from '../services/api/cartApi'

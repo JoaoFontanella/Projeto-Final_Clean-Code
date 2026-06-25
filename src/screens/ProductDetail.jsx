@@ -1,4 +1,4 @@
-import { React, useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import fetchProducts from '../services/api/productsApi';
 import '../styles/ProductDetail.css';
@@ -22,7 +22,7 @@ const ProductDetail = () => {
     };
 
     loadProducts();
-  }, []);
+  }, [id]);
 
   if (!product) {
     return (

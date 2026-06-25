@@ -89,7 +89,7 @@ const ChatBot = () => {
                 {msg.sender === 'bot' ? (
                   <ReactMarkdown
                     components={{
-                      a: ({ node, ...props }) => (
+                      a: ({ node: _node, ...props }) => (
                         <a {...props} target="_blank" rel="noopener noreferrer" />
                       ),
                     }}

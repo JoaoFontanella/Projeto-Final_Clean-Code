@@ -55,7 +55,7 @@ const Cart = () => {
         }
       })
     });
-  }, []);
+  }, [cartItems, totalPrice]);
 
   return (
     <div>
