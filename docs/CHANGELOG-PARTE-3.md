@@ -35,3 +35,9 @@ Criar a base de testes automatizados do front-end e deixar a execução validada
 ## Resultado
 
 A etapa de testes ficou pronta para uso local e para validação automática no CI.
+
+## Ajustes feitos depois
+
+- Foram adicionados mais testes para `Card`, `CartItem`, `Checkout`, `useCartActions` e `useFormValidation`.
+- Também foi coberto o `storageService` com mocks.
+- O workflow do GitHub Actions foi ajustado para instalar as dependências sem erro. (Verificando se vai funcionar no commit)

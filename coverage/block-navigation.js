@@ -1,22 +1,22 @@
 /* eslint-disable */
 var jumpToCode = (function init() {
-    // Classes de código que queremos destacar na visualização do arquivo
+    // Classes of code we would like to highlight in the file view
     var missingCoverageClasses = ['.cbranch-no', '.cstat-no', '.fstat-no'];
 
-    // Elementos para destacar na visualização da lista de arquivos
+    // Elements to highlight in the file listing view
     var fileListingElements = ['td.pct.low'];
 
-    // Não queremos selecionar elementos que sejam descendentes diretos de outro resultado
+    // We don't want to select elements that are direct descendants of another match
     var notSelector = ':not(' + missingCoverageClasses.join('):not(') + ') > '; // becomes `:not(a):not(b) > `
 
-    // Seletor que encontra os elementos da página para os quais podemos navegar
+    // Selector that finds elements on the page to which we can jump
     var selector =
         fileListingElements.join(', ') +
         ', ' +
         notSelector +
         missingCoverageClasses.join(', ' + notSelector); // becomes `:not(a):not(b) > a, :not(a):not(b) > b`
 
-    // A NodeList dos elementos correspondentes
+    // The NodeList of matching elements
     var missingCoverageElements = document.querySelectorAll(selector);
 
     var currentIndex;
@@ -67,7 +67,7 @@ var jumpToCode = (function init() {
             document.getElementById('fileSearch') === document.activeElement &&
             document.activeElement != null
         ) {
-            // Se o foco estiver no campo de busca, não queremos navegar
+            // if we're currently focused on the search input, we don't want to navigate
             return;
         }
 

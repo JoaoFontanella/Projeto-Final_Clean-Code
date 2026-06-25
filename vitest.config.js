@@ -9,7 +9,17 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
       all: false,
-      include: ['src/components/Card.jsx','src/components/ProductList.jsx','src/components/CartItem.jsx','src/context/CartContext.jsx','src/services/storage/storageService.js','src/screens/Checkout.jsx'],
+      include: [
+        'src/components/Card.jsx',
+        'src/components/ProductList.jsx',
+        'src/components/CartItem.jsx',
+        'src/context/CartContext.jsx',
+        'src/services/storage/storageService.js',
+        'src/screens/Checkout.jsx',
+        'src/hooks/useCartActions.jsx',
+        'src/hooks/useFormValidation.jsx',
+        'src/utils/priceUtils.js',
+      ],
       threshold: {
         global: {
           statements: 50,

@@ -7,19 +7,19 @@ var addSorting = (function() {
             desc: false
         };
 
-    // Retorna o elemento da tabela-resumo
+    // returns the summary table element
     function getTable() {
         return document.querySelector('.coverage-summary');
     }
-    // Retorna o elemento thead da tabela-resumo
+    // returns the thead element of the summary table
     function getTableHeader() {
         return getTable().querySelector('thead tr');
     }
-    // Retorna o elemento tbody da tabela-resumo
+    // returns the tbody element of the summary table
     function getTableBody() {
         return getTable().querySelector('tbody');
     }
-    // Retorna o elemento th da n-ésima coluna
+    // returns the th element for nth column
     function getNthColumn(n) {
         return getTableHeader().querySelectorAll('th')[n];
     }
@@ -28,11 +28,11 @@ var addSorting = (function() {
         const searchValue = document.getElementById('fileSearch').value;
         const rows = document.getElementsByTagName('tbody')[0].children;
 
-        // Tenta criar uma RegExp a partir do valor pesquisado. Se falhar (regex inválida),
-        // será tratado como uma busca em texto simples
+        // Try to create a RegExp from the searchValue. If it fails (invalid regex),
+        // it will be treated as a plain text search
         let searchRegex;
         try {
-            searchRegex = new RegExp(searchValue, 'i'); // 'i' para ignorar maiúsculas e minúsculas
+            searchRegex = new RegExp(searchValue, 'i'); // 'i' for case-insensitive
         } catch (error) {
             searchRegex = null;
         }
@@ -42,10 +42,10 @@ var addSorting = (function() {
             let isMatch = false;
 
             if (searchRegex) {
-                // Se uma regex válida foi criada, use-a para a comparação
+                // If a valid regex was created, use it for matching
                 isMatch = searchRegex.test(row.textContent);
             } else {
-                // Caso contrário, volte para a busca em texto simples original
+                // Otherwise, fall back to the original plain text search
                 isMatch = row.textContent
                     .toLowerCase()
                     .includes(searchValue.toLowerCase());
@@ -55,7 +55,7 @@ var addSorting = (function() {
         }
     }
 
-    // Carrega a caixa de busca
+    // loads the search box
     function addSearchBox() {
         var template = document.getElementById('filterTemplate');
         var templateClone = template.content.cloneNode(true);
@@ -63,7 +63,7 @@ var addSorting = (function() {
         template.parentElement.appendChild(templateClone);
     }
 
-    // Carrega todas as colunas
+    // loads all columns
     function loadColumns() {
         var colNodes = getTableHeader().querySelectorAll('th'),
             colNode,
@@ -87,8 +87,8 @@ var addSorting = (function() {
         }
         return cols;
     }
-    // Anexa um atributo de dados a cada elemento tr com um objeto
-    // de valores indexados pelo nome da coluna
+    // attaches a data attribute to every tr element with an object
+    // of data values keyed by column name
     function loadRowData(tableRow) {
         var tableCols = tableRow.querySelectorAll('td'),
             colNode,
@@ -107,7 +107,7 @@ var addSorting = (function() {
         }
         return data;
     }
-    // Carrega todos os dados das linhas
+    // loads all row data
     function loadData() {
         var rows = getTableBody().querySelectorAll('tr'),
             i;
@@ -116,7 +116,7 @@ var addSorting = (function() {
             rows[i].data = loadRowData(rows[i]);
         }
     }
-    // Ordena a tabela usando os dados da i-ésima coluna
+    // sorts the table using the data for the ith column
     function sortByIndex(index, desc) {
         var key = cols[index].key,
             sorter = function(a, b) {
@@ -147,7 +147,7 @@ var addSorting = (function() {
             tableBody.appendChild(rows[i]);
         }
     }
-    // Remove os indicadores de ordenação da coluna atual
+    // removes sort indicators for current column being sorted
     function removeSortIndicators() {
         var col = getNthColumn(currentSort.index),
             cls = col.className;
@@ -155,13 +155,13 @@ var addSorting = (function() {
         cls = cls.replace(/ sorted$/, '').replace(/ sorted-desc$/, '');
         col.className = cls;
     }
-    // Adiciona os indicadores de ordenação da coluna atual
+    // adds sort indicators for current column being sorted
     function addSortIndicators() {
         getNthColumn(currentSort.index).className += currentSort.desc
             ? ' sorted-desc'
             : ' sorted';
     }
-    // Adiciona listeners de evento para todos os elementos de ordenação
+    // adds event listeners for all sorter widgets
     function enableUI() {
         var i,
             el,
@@ -183,8 +183,8 @@ var addSorting = (function() {
             };
         for (i = 0; i < cols.length; i += 1) {
             if (cols[i].sortable) {
-                // Adiciona o handler de clique no th para que o usuário
-                // não precise clicar nas setinhas pequenas
+                // add the click event handler on the th so users
+                // dont have to click on those tiny arrows
                 el = getNthColumn(i).querySelector('.sorter').parentElement;
                 if (el.addEventListener) {
                     el.addEventListener('click', ithSorter(i));
@@ -194,7 +194,7 @@ var addSorting = (function() {
             }
         }
     }
-    // Adiciona a funcionalidade de ordenação à interface
+    // adds sorting functionality to the UI
     return function() {
         if (!getTable()) {
             return;
