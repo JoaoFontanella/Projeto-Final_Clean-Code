@@ -62,6 +62,21 @@ DB_PORT=5432
 Rodar o comando abaixo para instalar o requerimentos para o codigo python
 pip install -r requirements.txt
 
+## Testes
+
+Executar testes unitários com Vitest:
+
+```
+npm test
+```
+
+Gerar relatório de coverage (HTML salvo em `coverage/`):
+
+```
+npm run test:coverage
+```
+
+
 
 
 
