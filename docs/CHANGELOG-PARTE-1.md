@@ -14,6 +14,13 @@ Organizar a estrutura inicial do front-end e separar responsabilidades principai
 - Centralizado o bootstrap de storage em `src/services/storage/`.
 - Atualizados os componentes e telas que consumiam os helpers antigos.
 
+## Code smells corrigidos
+
+- Responsabilidade excessiva no `App`, que concentrava bootstrap, providers e rotas.
+- Alto acoplamento entre a entrada da aplicação e helpers antigos de API e storage.
+- Duplicação de lógica de acesso a serviços espalhada em componentes e telas.
+- Baixa coesão estrutural, com infraestrutura e interface misturadas no mesmo fluxo.
+
 ## Validação
 
 - Build executado com sucesso após a reorganização.

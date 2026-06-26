@@ -13,6 +13,14 @@ Refatorar telas e componentes repetidos para reduzir acoplamento e simplificar a
 - Correção da Home para manter os cards lado a lado.
 - Correção de um warning de CSS.
 
+## Code smells corrigidos
+
+- Componentes grandes e difíceis de manter, com responsabilidade concentrada no mesmo arquivo.
+- Lógica duplicada entre telas e componentes, especialmente em validação e ações do carrinho.
+- Baixa coesão, com regra de negócio misturada com apresentação.
+- Alto acoplamento entre checkout, storage e validação, dificultando reaproveitamento.
+- Inconsistência visual causada por regra de layout espalhada e warning de CSS.
+
 ## Arquivos principais
 
 - `src/components/ProductList.jsx`

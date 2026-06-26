@@ -43,7 +43,9 @@ No projeto, localize o arquivo db_connection.php na pasta API e atualize os dado
 ### 6. Rode o projeto
 Abra um terminal dentro da pasta do projeto ou no próprio VSCode e execute o comando na pasta do projeto:
 
-```npm run dev ```
+```
+npm run dev
+```
 
 Não se esqueça de dar Start no Apache dentro do Xampp. 
 
